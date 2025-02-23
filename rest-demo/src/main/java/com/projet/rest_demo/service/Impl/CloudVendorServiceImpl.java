@@ -4,11 +4,13 @@ import com.projet.rest_demo.service.CloudVendorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import com.projet.rest_demo.repository.CloudVendorRepository;
+import org.springframework.stereotype.Service;
 import java.util.List;
 import com.projet.rest_demo.model.CloudVendor;
 
+@Service
 public class CloudVendorServiceImpl implements CloudVendorService {
-     @Autowired
+    @Autowired
     private CloudVendorRepository cloudVendorRepository;
     @Override
     public String createCloudVendorDetails(CloudVendor cloudVendor) {
