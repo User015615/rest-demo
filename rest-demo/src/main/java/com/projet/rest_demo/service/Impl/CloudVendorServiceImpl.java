@@ -1,0 +1,42 @@
+package com.projet.rest_demo.service.Impl;
+
+import com.projet.rest_demo.service.CloudVendorService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import com.projet.rest_demo.repository.CloudVendorRepository;
+import java.util.List;
+import com.projet.rest_demo.model.CloudVendor;
+
+public class CloudVendorServiceImpl implements CloudVendorService {
+     @Autowired
+    private CloudVendorRepository cloudVendorRepository;
+    @Override
+    public String createCloudVendorDetails(CloudVendor cloudVendor) {
+        cloudVendorRepository.save(cloudVendor);
+        return "Cloud Vendor created successfully";
+    }
+
+    @Override
+    public String updateCloudVendorDetails(CloudVendor cloudVendor) {
+        cloudVendorRepository.save(cloudVendor);
+        return "Cloud Vendor updated successfully";
+    }
+
+    @Override
+    public String deleteCloudVendorDetails(String cloudVendorId) {
+        cloudVendorRepository.deleteById(cloudVendorId);
+        return "Cloud Vendor deleted successfully";
+    }
+
+    @Override
+    public CloudVendor getCloudVendorDetails(String cloudVendorId) {
+        return cloudVendorRepository.findById(cloudVendorId).orElse(null);
+    }
+
+    @Override
+    public List<CloudVendor> getAllCloudVendors() {
+        return cloudVendorRepository.findAll();
+    }
+}
+ 
+ 
