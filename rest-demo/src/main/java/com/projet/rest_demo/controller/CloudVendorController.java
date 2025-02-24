@@ -1,6 +1,8 @@
 package com.projet.rest_demo.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import com.projet.rest_demo.model.CloudVendor;
+import com.projet.rest_demo.response.ResponseHandler;
 import com.projet.rest_demo.service.CloudVendorService;
 
 @RestController
@@ -24,9 +27,9 @@ public class CloudVendorController
     }
     
     @GetMapping("{vendorId}")
-    public CloudVendor getCloudVendorDetails(@PathVariable("vendorId") String vendorId) {
+    public ResponseEntity<Object> getCloudVendorDetails(@PathVariable("vendorId") String vendorId) {
         //  return new CloudVendor("C1", "Vendor 1", "Adress One", "06xxxxxxxx");
-        return cloudVendorService.getCloudVendorDetails(vendorId);
+        return ResponseHandler.responseBuilder("Requested Vendor Details are given here", HttpStatus.OK, cloudVendorService.getCloudVendorDetails(vendorId));
     }
 
     @GetMapping()
