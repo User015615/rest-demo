@@ -1,5 +1,7 @@
 package com.projet.rest_demo.service.Impl;
 
+import com.projet.rest_demo.exception.CloudVendorNotFoundException;
+
 import com.projet.rest_demo.service.CloudVendorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,10 @@ public class CloudVendorServiceImpl implements CloudVendorService {
 
     @Override
     public CloudVendor getCloudVendorDetails(String cloudVendorId) {
-        return cloudVendorRepository.findById(cloudVendorId).orElse(null);
+        if (cloudVendorRepository.findById(cloudVendorId).isEmpty()) {
+            throw new CloudVendorNotFoundException("Request Cloud Vendor does not exist");
+        }
+        return cloudVendorRepository.findById(cloudVendorId).get();
     }
 
     @Override
