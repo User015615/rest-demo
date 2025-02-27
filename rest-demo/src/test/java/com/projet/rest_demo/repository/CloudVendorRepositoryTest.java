@@ -1,38 +1,55 @@
 package com.projet.rest_demo.repository;
 
-import java.util.List;
+import com.projet.rest_demo.model.CloudVendor;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.beans.factory.annotation.Autowired;
-import static org.assertj.core.api.Assertions.assertThat;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import com.projet.rest_demo.model.CloudVendor;
+import java.util.List;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
 public class CloudVendorRepositoryTest {
+
+  //  given - when - then
+
     @Autowired
     private CloudVendorRepository cloudVendorRepository;
     CloudVendor cloudVendor;
-    
+
     @BeforeEach
-    public void setUp() {
-        cloudVendor = new CloudVendor("1", "Amazon", "USA", "xxxxxx");
+    void setUp() {
+        cloudVendor = new CloudVendor("1","Amazon",
+                "USA", "06xxxxxxx");
+        cloudVendorRepository.save(cloudVendor);
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         cloudVendor = null;
         cloudVendorRepository.deleteAll();
     }
 
+    // Test case SUCCESS
+
     @Test
-    void testFindByVendorName_Found() {
-        List<CloudVendor> CloudVendorList = cloudVendorRepository.findByVendorName("Amazon");
-        assertThat(CloudVendorList.get(0).getVendorId()).isEqualTo(cloudVendor.getVendorId());
-        assertThat(CloudVendorList.get(0).getVendorId())
+    void testFindByVendorName_Found()
+    {
+        List<CloudVendor> cloudVendorList = cloudVendorRepository.findByVendorName("Amazon");
+        assertThat(cloudVendorList.get(0).getVendorId()).isEqualTo(cloudVendor.getVendorId());
+        assertThat(cloudVendorList.get(0).getVendorAdress())
                 .isEqualTo(cloudVendor.getVendorAdress());
+    }
+
+    // Test case FAILURE
+    @Test
+    void testFindByVendorName_NotFound()
+    {
+        List<CloudVendor> cloudVendorList = cloudVendorRepository.findByVendorName("Disney");
+        assertThat(cloudVendorList.isEmpty()).isTrue();
     }
 }
