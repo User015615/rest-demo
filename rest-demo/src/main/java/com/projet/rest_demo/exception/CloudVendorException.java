@@ -1,7 +1,5 @@
 package com.projet.rest_demo.exception;
 
-import java.net.http.HttpClient;
-
 import org.springframework.http.HttpStatus;
 
 public class CloudVendorException  {

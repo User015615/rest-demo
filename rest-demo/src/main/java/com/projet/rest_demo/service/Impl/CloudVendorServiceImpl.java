@@ -1,4 +1,4 @@
-package com.projet.rest_demo.service.Impl;
+package com.projet.rest_demo.service.impl;
 
 import com.projet.rest_demo.exception.CloudVendorNotFoundException;
 
@@ -14,6 +14,11 @@ import com.projet.rest_demo.model.CloudVendor;
 public class CloudVendorServiceImpl implements CloudVendorService {
     @Autowired
     private CloudVendorRepository cloudVendorRepository;
+
+    public CloudVendorServiceImpl(CloudVendorRepository cloudVendorRepository) {
+        this.cloudVendorRepository = cloudVendorRepository;
+    }
+    
     @Override
     public String createCloudVendorDetails(CloudVendor cloudVendor) {
         cloudVendorRepository.save(cloudVendor);
@@ -43,6 +48,12 @@ public class CloudVendorServiceImpl implements CloudVendorService {
     @Override
     public List<CloudVendor> getAllCloudVendors() {
         return cloudVendorRepository.findAll();
+    }
+
+    @Override
+    public List<CloudVendor> getByVendorName(String vendorName)
+    {
+        return cloudVendorRepository.findByVendorName(vendorName);
     }
 }
  
