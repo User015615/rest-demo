@@ -4,6 +4,10 @@ spring:
     username: root
     password: dummy
 
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
 
 jpa:
   properties:
